@@ -87,6 +87,7 @@ function buy(id) {
     console.log(cartList);
 }
 
+
 // Exercise 2
 function cleanCart() {
     cartList.splice(0,cartList.length);
@@ -110,6 +111,15 @@ function calculateTotal() {
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
+
+    cartList;
+    cart;
+
+    for(var i=0;i<cartList.length;i++){
+
+    }
+    
+    document.getElementById("cart_list").rows[1].cells[2].innerHTML = "hola";
 }
 
 // Exercise 5
@@ -120,6 +130,18 @@ function applyPromotionsCart() {
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+
+    
+    for(var i=0;i<cartList;i++){
+        console.log(cartList[i].name);
+   }
+
+    for(var i=0;i<cartList;i++){
+         document.getElementById("cart_list").rows[i].cells[i].innerHTML = cartList[i].name;
+         console.log(document.getElementById("cart_list").rows[i].cells[i+1]);
+         console.log(cartList[i].name);
+    }
+
 }
 
 
@@ -142,4 +164,5 @@ function open_modal(){
 	console.log("Open Modal");
 	printCart();
     calculateTotal();
+    generateCart();
 }
