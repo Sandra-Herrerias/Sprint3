@@ -73,18 +73,31 @@ var total = 0;
 
 // Exercise 1
 function buy(id) {
+    let product;
+
     // 1. Loop for to the array products to get the item to add to cart
+    for(var i=1;i<products.length+1;i++){
+        if(id == i){
+            product = products[i-1];
+        }
+    } 
+    
     // 2. Add found product to the cartList array
+    cartList.push(product);
+    console.log(cartList);
 }
 
 // Exercise 2
 function cleanCart() {
-
+    cartList.splice(0,cartList.length);
+    console.log(cartList);
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+    
+
 }
 
 // Exercise 4
