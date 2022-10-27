@@ -83,13 +83,12 @@ function buy(id) {
 
     // 2. Add found product to the cartList array
     cartList.push(product);
-    console.log(cartList);
 }
 
 // Exercise 2
 function cleanCart() {
     cartList.splice(0, cartList.length);
-    console.log(cartList);
+    document.getElementById("total_price").innerHTML = 0;
 }
 
 // Exercise 3
@@ -100,6 +99,7 @@ function calculateTotal() {
         total += cartList[i].price;
     }
     document.getElementById("total_price").innerHTML = total;
+    console.log(total);
 }
 
 // Exercise 4
@@ -119,8 +119,9 @@ function generateCart(cartList) {
 }
 
 // Exercise 5
-function applyPromotionsCart() {
+function applyPromotionsCart(cart) {
     // Apply promotions to each item in the array "cart"
+
 }
 
 // Exercise 6
@@ -155,8 +156,9 @@ function removeFromCart(id) {
 function open_modal() {
     console.log("Open Modal");
     generateCart(cartList);
-    printCart();
     calculateTotal();
+    printCart();
+
 
 
 }
