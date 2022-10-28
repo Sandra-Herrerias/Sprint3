@@ -75,7 +75,7 @@ function buy(id) {
     let product;
 
     // 1. Loop for to the array products to get the item to add to cart
-    for (var i = 1; i < products.length + 1; i++) {
+    for (let i = 1; i < products.length + 1; i++) {
         if (id == i) {
             product = products[i - 1];
         }
@@ -95,11 +95,12 @@ function cleanCart() {
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
     total = 0;
-    for (var i = 0; i < cartList.length; i++) {
+    for (let i = 0; i < cartList.length; i++) {
         total += cartList[i].price;
     }
-    document.getElementById("total_price").innerHTML = total;
-    console.log(total);
+    var totalDecimal = parseFloat(total).toFixed(2)
+    document.getElementById("total_price").innerHTML = totalDecimal;
+    console.log("cartListAFTER" + JSON.stringify(cartList));
 }
 
 // Exercise 4
@@ -107,7 +108,7 @@ function generateCart(cartList) {
     // Using the "cartlist" array that contains all the items in the shopping cart,
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
 
-    for (var i = 0; i < cartList.length; i++) {
+    for (let i = 0; i < cartList.length; i++) {
         if (!cart.includes(cartList[i])) { //doesn't exist
             cartList[i].quantity = 1;
             cart.push(cartList[i]);
@@ -115,26 +116,48 @@ function generateCart(cartList) {
             cartList[i].quantity += 1;
         }
     }
-    console.log("cartListAFTER" + JSON.stringify(cart));
+    applyPromotionsCart(cart);
+    console.log("cartListPROMO" + JSON.stringify(cart));
 }
 
 // Exercise 5
 function applyPromotionsCart(cart) {
     // Apply promotions to each item in the array "cart"
-
+    let discount;
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id == 1 && cart[i].quantity >= 3) {
+            cart[i].price = 10;
+            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+        } else if (cart[i].id == 3 && cart[i].quantity >= 10) {
+            //calculate 2/3 from price discount
+            discount = cart[i].price / 3 * 2;
+            console.log("cartListAFTER" + JSON.stringify(discount));
+            //round decimal numbers
+            cart[i].price = discount.toFixed(2);
+            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+        } else {
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
+        }
+    }
+    console.log("cartListAFTER" + JSON.stringify(cart));
 }
 
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
 
-    for (var i = 0; i < cartList.length; i++) {
+    for (let i = 0; i < cart.length; i++) {
         document.getElementById("cart_list").rows[i].cells[0].innerHTML =
             cart[i].name;
         document.getElementById("cart_list").rows[i].cells[1].innerHTML =
             cart[i].price;
         document.getElementById("cart_list").rows[i].cells[2].innerHTML = cart[i].quantity;
-        //document.getElementById("cart_list").rows[i].cells[3].innerHTML = cartList[i].offer;
+        if (cart[i].id == 1 || cart[i].id == 3) {
+            document.getElementById("cart_list").rows[i].cells[3].innerHTML = cart[i].subtotalWithDiscount;
+        } else {
+            document.getElementById("cart_list").rows[i].cells[3].innerHTML = cart[i].subtotal;
+        }
+
     }
 }
 
