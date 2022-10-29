@@ -91,7 +91,10 @@ function buy(id) {
 // Exercise 2
 function cleanCart() {
     cartList.splice(0, cartList.length);
+    cart.splice(0, cart.length);
     document.getElementById("total_price").innerHTML = 0;
+    var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
+    tableRef.innerHTML = "";
 }
 
 // Exercise 3
@@ -109,7 +112,8 @@ function calculateTotal() {
 function generateCart(cartList) {
     // Using the "cartlist" array that contains all the items in the shopping cart,
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
-
+    cart.splice(0, cart.length);
+    console.log("cart cleaned auto: " + JSON.stringify(cart));
     for (let i = 0; i < cartList.length; i++) {
         if (!cart.includes(cartList[i])) { //doesn't exist
             cartList[i].quantity = 1;
@@ -119,6 +123,7 @@ function generateCart(cartList) {
         }
     }
     applyPromotionsCart(cart);
+    console.log("cart generated: " + JSON.stringify(cart));
 }
 
 // Exercise 5
@@ -191,8 +196,8 @@ function removeFromCart(id) {
 
 function open_modal() {
     console.log("Open Modal");
+    var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
+    tableRef.innerHTML = "";
     generateCart(cartList);
-    //calculateTotal();
     printCart();
-
 }
