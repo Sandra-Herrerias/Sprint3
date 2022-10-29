@@ -154,18 +154,22 @@ function applyPromotionsCart(cart) {
 
 // Exercise 6
 function printCart() {
-    // Fill the shopping cart modal manipulating the shopping cart dom
 
+    // Fill the shopping cart modal manipulating the shopping cart dom
+    var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
     for (let i = 0; i < cart.length; i++) {
-        document.getElementById("cart_list").rows[i].cells[0].innerHTML =
-            cart[i].name;
-        document.getElementById("cart_list").rows[i].cells[1].innerHTML =
-            cart[i].price;
-        document.getElementById("cart_list").rows[i].cells[2].innerHTML = cart[i].quantity;
         if ((cart[i].id == oilId && cart[i].quantity >= 3) || (cart[i].id == cupcakeId && cart[i].quantity >= 10)) {
-            document.getElementById("cart_list").rows[i].cells[3].innerHTML = cart[i].subtotalWithDiscount;
+            tableRef.insertRow().innerHTML =
+                "<th>" + cart[i].name + "</th>" +
+                "<td>" + cart[i].price + "</td>" +
+                "<td>" + cart[i].quantity + "</td>" +
+                "<td>" + cart[i].subtotalWithDiscount + "</td>";
         } else {
-            document.getElementById("cart_list").rows[i].cells[3].innerHTML = cart[i].subtotal;
+            tableRef.insertRow().innerHTML =
+                "<th>" + cart[i].name + "</th>" +
+                "<td>" + cart[i].price + "</td>" +
+                "<td>" + cart[i].quantity + "</td>" +
+                "<td>" + cart[i].subtotal + "</td>";
         }
     }
 }
