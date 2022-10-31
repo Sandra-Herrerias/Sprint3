@@ -14,6 +14,7 @@
     <!-- Bootstrap icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -24,8 +25,8 @@
             <div class="d-flex flex-row order-lg-last align-items-center">
 
                 <button type="button" class="navbar-toggler order-last collapsed" data-bs-toggle="collapse" data-bs-target="#navbar" aria-expanded="false" aria-controls="navbar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <ul class="navbar-nav me-3 me-lg-0 d-flex flex-row align-items-center">
                     <li class="dropdown search-dropdown nav-item py-lg-3">
                         <a href="javascript:void(0)" class="btn btn-outline-dark flex-center" type="button" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="open_modal()" data-bs-auto-close="outside">
@@ -72,49 +73,68 @@
                 <h3 class="my-3 bord shadow text-center"><i class="fas fa-stopwatch p-2"></i>Delivery on time</h3>
             </div>
         </div>
-        <form class="form">
+        <form class="form " action="" id="formCheckOut">
             <div class="row bord p-5 shadow m-5">
                 <div class="col-sm-6">
-                    <div class="mt-3">
+                    <div class="mt-3" id="fNameGroup">
                         <label for="fName" class="form-label">First Name:</label>
-                        <input id="fName" class="form-control ml-3" type="text" placeholder="First Name" />
-                        <div id="errorName" class="invalid-feedback">This field is required and must have, at least, 3 characters
+                        <div class="inputGroup">
+                            <input id="fName" name="fName" class="form-control ml-3 form_input" type="text" placeholder="First Name" />
+                            <i class="validationIcon fas"></i>
+                        </div>
+                        <div id="errorName" class="errorText small">This field is required and must have, at least, 3 characters
                         </div>
                     </div>
-                    <div class="mt-3 ">
+                    <div class="mt-3" id="fEmailGroup">
                         <label for="fEmail" class="form-label">Email:</label>
-                        <input id="fEmail" class="form-control ml-3" type="email" placeholder="Email" minlength="3" />
-                        <div id="errorEmail" class="invalid-feedback">This field is required and must contain an '@' and have, at least, 3 characters</div>
+                        <div class="inputGroup">
+                            <input id="fEmail" name="fEmail" class="form-control ml-3 form_input" type="email" placeholder="Email" minlength="3" />
+                            <i class="validationIcon fas"></i>
+                        </div>
+                        <div id="errorEmail" class="errorText small">This field is required and must contain an '@' and have, at least, 3 characters</div>
                     </div>
-                    <div class="mt-3 ">
+                    <div class="mt-3" id="fAddressGroup">
                         <label for="fAddress" class="form-label">Address:</label>
-                        <input id="fAddress" class="form-control" type="text" placeholder="Address" minlength="3" />
-                        <div id="errorAddress" class="invalid-feedback">This field is required and must have, at least, 3 characters
+                        <div class="inputGroup">
+                            <input id="fAddress" name="fAddress" class="form-control form_input" type="text" placeholder="Address" minlength="3" />
+                            <i class="validationIcon fas"></i>
+                        </div>
+                        <div id="errorAddress" class="errorText small">This field is required and must have, at least, 3 characters
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="mt-3">
+                    <div class="mt-3" id="fLastNGroup">
                         <label for="fLastN" class="form-label">Last Name:</label>
-                        <input id="fLastN" class="form-control" type="text" placeholder="Last Name" minlength="3" />
-                        <div id="errorLastN" class="invalid-feedback">This field is required and must have, at least, 3 characters
+                        <div class="inputGroup">
+                            <input id="fLastN" name="fLastN" class="form-control form_input" type="text" placeholder="Last Name" minlength="3" />
+                            <i class="validationIcon fas"></i>
+                        </div>
+                        <div id="errorLastN" class="errorText small">This field is required and must have, at least, 3 characters
                         </div>
                     </div>
-                    <div class="mt-3">
+                    <div class="mt-3" id="fPasswordGroup">
                         <label for="fPassword" class="form-label">Password:</label>
-                        <input id="fPassword" class="form-control" title="(4-8 characters)" type="password" minlength="4" maxlength="8" placeholder="Password" />
-                        <div id="errorPassword" class="invalid-feedback">Enter a correct password</div>
+                        <div class="inputGroup">
+                            <input id="fPassword" name="fPassword" class="form-control form_input" title="(4-8 characters)" type="password" minlength="4" maxlength="8" placeholder="Password" />
+                            <i class="validationIcon fas"></i>
+                        </div>
+                        <div id="errorPassword" class="errorText small">Enter a correct password</div>
                     </div>
-                    <div class="mt-3">
+                    <div class="mt-3" id="fPhoneGroup">
                         <label for="fPhone" class="form-label">Phone Number:</label>
-                        <input id="fPhone" class="form-control" type="number" placeholder="Phone No." />
-                        <div id="errorPhone" class="invalid-feedback">Invalid phone number!! Must be 9 digits with no letters</div>
+                        <div class="inputGroup">
+                            <input id="fPhone" name="fPhone" class="form-control form_input" type="number" placeholder="Phone No." />
+                            <i class="validationIcon fas"></i>
+                        </div>
+                        <div id="errorPhone" class="errorText small">Invalid phone number!! Must be 9 digits with no letters
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 mt-4 final">
-                    <button type="submit" id="btn" class="p-2 px-4 btn btn-primary shadow-lg" onclick="validate()">
-						<i class="fas fa-cart-arrow-down p-2"></i>Save
-					</button>
+                    <button type="submit" id="btn" class="p-2 px-4 btn btn-primary shadow-lg">
+                        <i class="fas fa-cart-arrow-down p-2"></i>Save
+                    </button>
                 </div>
             </div>
         </form>
@@ -154,7 +174,8 @@
     </div>
 
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
     <!-- Core theme JS-->
     <script src="js/shop.js"></script>

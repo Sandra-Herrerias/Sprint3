@@ -1,0 +1,39 @@
+.invalidInput .form_input {
+    border: 3px solid #bb2929;
+}
+
+.invalidInput .validationIcon {
+    color: #bb2929;
+    opacity: 1;
+}
+
+.validInput .validationIcon {
+    color: #1ed12d;
+    opacity: 1;
+}
+
+.validInput .errorText {
+    display: none;
+}
+
+.validInput .form_input {
+    border: 3px solid #1ed12d;
+}
+
+.validationIcon {
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+    z-index: 100;
+    font-size: 16px;
+    opacity: 0;
+}
+
+.inputGroup {
+    position: relative;
+}
+
+.errorText {
+    color: #bb2929;
+    display: none;
+}
