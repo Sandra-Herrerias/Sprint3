@@ -1,3 +1,8 @@
+window.onload = function(){
+  document.getElementById('count_product').innerHTML = 0;
+};
+
+
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
 var products = [{
         id: 1,
@@ -69,12 +74,13 @@ var cartList = [];
 var cart = [];
 
 var total = 0;
+var totalQuantity=0;
 
 const oilId = 1;
 const cupcakeId = 3;
 
 // Exercise 1
-function buy(id) {
+/*function buy(id) {
     let product;
 
     // 1. Loop for to the array products to get the item to add to cart
@@ -86,7 +92,7 @@ function buy(id) {
 
     // 2. Add found product to the cartList array
     cartList.push(product);
-}
+}*/
 
 // Exercise 2
 function cleanCart() {
@@ -95,10 +101,11 @@ function cleanCart() {
     document.getElementById("total_price").innerHTML = 0;
     var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
     tableRef.innerHTML = "";
+    document.getElementById('count_product').innerHTML = 0;
 }
 
 // Exercise 3
-function calculateTotal() {
+/*function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
     total = 0;
     for (let i = 0; i < cartList.length; i++) {
@@ -106,10 +113,10 @@ function calculateTotal() {
     }
     var totalDecimal = parseFloat(total).toFixed(2);
     document.getElementById("total_price").innerHTML = totalDecimal;
-}
+}*/
 
 // Exercise 4
-function generateCart(cartList) {
+/*function generateCart(cartList) {
     // Using the "cartlist" array that contains all the items in the shopping cart,
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
     cart.splice(0, cart.length);
@@ -124,19 +131,21 @@ function generateCart(cartList) {
     }
     applyPromotionsCart(cart);
     console.log("cart generated: " + JSON.stringify(cart));
-}
+}*/
 
 // Exercise 5
 function applyPromotionsCart(cart) {
     // Apply promotions to each item in the array "cart"
     let discount;
     total = 0;
+    totalQuantity=0;
     for (let i = 0; i < cart.length; i++) {
         if (cart[i].id == oilId && cart[i].quantity >= 3) {
             cart[i].price = 10;
             cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
             //sum total
             total += cart[i].subtotalWithDiscount;
+            totalQuantity += cart[i].quantity;
         } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
             //calculate 2/3 from price discount
             discount = cart[i].price / 3 * 2;
@@ -145,10 +154,12 @@ function applyPromotionsCart(cart) {
             cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
             //sum total
             total += cart[i].subtotalWithDiscount;
+            totalQuantity += cart[i].quantity;
         } else {
             cart[i].subtotal = cart[i].quantity * cart[i].price;
             //sum total
             total += cart[i].subtotal;
+            totalQuantity += cart[i].quantity;
         }
     }
 
@@ -183,9 +194,35 @@ function printCart() {
 
 // Exercise 7
 function addToCart(id) {
+
+  let product;
+  let cartLength = cart.length;
     // Refactor previous code in order to simplify it
     // 1. Loop for to the array products to get the item to add to cart
+        for (let i = 0; i < products.length; i++) {
+          if (products[i].id == id) {
+              product = products[i];
+          }
+      }
+  
     // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+      cartList.push(product);
+
+      cart.splice(0, cart.length);
+      console.log("cart cleaned auto: " + JSON.stringify(cart));
+      for (let i = 0; i < cartList.length; i++) {
+          if (!cart.includes(cartList[i])) { //doesn't exist
+              cartList[i].quantity = 1;
+              cart.push(cartList[i]);
+          } else { //exists
+              cartList[i].quantity += 1;
+          }
+      }
+      applyPromotionsCart(cart);
+      console.log("cart generated: " + JSON.stringify(cart));
+     
+      //insert item number added to cart
+      document.getElementById('count_product').innerHTML = totalQuantity;
 }
 
 // Exercise 8
@@ -198,6 +235,6 @@ function open_modal() {
     console.log("Open Modal");
     var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
     tableRef.innerHTML = "";
-    generateCart(cartList);
+    //generateCart(cartList);
     printCart();
 }

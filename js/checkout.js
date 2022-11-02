@@ -94,6 +94,7 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validate);
 });
 
+if(formCheckOut){
 //Form that listens until submit
 formCheckOut.addEventListener('submit', (e) => {
 
@@ -119,3 +120,6 @@ formCheckOut.addEventListener('submit', (e) => {
         e.preventDefault(); //avoid page reload
     }
 });
+
+
+}
