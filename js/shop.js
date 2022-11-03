@@ -1,5 +1,5 @@
-window.onload = function(){
-  document.getElementById('count_product').innerHTML = 0;
+window.onload = function() {
+    document.getElementById('count_product').innerHTML = 0;
 };
 
 
@@ -74,7 +74,7 @@ var cartList = [];
 var cart = [];
 
 var total = 0;
-var totalQuantity=0;
+var totalQuantity = 0;
 
 const oilId = 1;
 const cupcakeId = 3;
@@ -138,7 +138,7 @@ function applyPromotionsCart(cart) {
     // Apply promotions to each item in the array "cart"
     let discount;
     total = 0;
-    totalQuantity=0;
+    totalQuantity = 0;
     for (let i = 0; i < cart.length; i++) {
         if (cart[i].id == oilId && cart[i].quantity >= 3) {
             cart[i].price = 10;
@@ -170,34 +170,36 @@ function applyPromotionsCart(cart) {
 
 // Exercise 6
 function printCart() {
-
+    var icon;
     // Fill the shopping cart modal manipulating the shopping cart dom
     var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
     for (let i = 0; i < cart.length; i++) {
         if ((cart[i].id == oilId && cart[i].quantity >= 3) || (cart[i].id == cupcakeId && cart[i].quantity >= 10)) {
+
             tableRef.insertRow().innerHTML =
                 "<th>" + cart[i].name + "</th>" +
                 "<td>" + cart[i].price + "</td>" +
                 "<td>" + cart[i].quantity + "</td>" +
                 "<td>" + cart[i].subtotalWithDiscount + "</td>" +
-                "<td id='targ'><i " +
-                this.addEventListener("click",  function getHtml(){
-                    removeFromCart(cart[i].id);
-                }) +
-                " class='fas fa-solid fa-trash'></i></td>";
-                console.log("cart WITHDISCOUNT: " + JSON.stringify(cart[i]));
+                "<td><i id='icon" + cart[i].name + "' class='fas fa-solid fa-trash'></i></td>";
+            icon = document.getElementById("icon" + cart[i].name);
+            icon.onclick = function() {
+                removeFromCart(cart[i].id)
+            };
+            console.log(icon);
+
         } else {
             tableRef.insertRow().innerHTML =
                 "<th>" + cart[i].name + "</th>" +
                 "<td>" + cart[i].price + "</td>" +
                 "<td>" + cart[i].quantity + "</td>" +
                 "<td>" + cart[i].subtotal + "</td>" +
-                "<td id='targ'><i" +
-                this.addEventListener("click",  function getHtml(){
-                    removeFromCart(cart[i].id);
-                }) +
-                " class='fas fa-solid fa-trash'></i></td>";
-                console.log("cart WITHoutDISCOUNT: " + JSON.stringify(cart[i]));
+                "<td><i id='icon" + cart[i].name + "' class='fas fa-solid fa-trash'></i></td>";
+            icon = document.getElementById("icon" + cart[i].name);
+            icon.onclick = function() {
+                removeFromCart(cart[i].id)
+            };
+            console.log(icon);
         }
     }
 }
@@ -207,57 +209,59 @@ function printCart() {
 // Exercise 7
 function addToCart(id) {
 
-  let product;
+    let product;
     // Refactor previous code in order to simplify it
     // 1. Loop for to the array products to get the item to add to cart
-        for (let i = 0; i < products.length; i++) {
-          if (products[i].id == id) {
-              product = products[i];
-          }
-      }
-  
-    // 2. Add found product to the cart array or update its quantity in case it has been added previously.
-      cartList.push(product);
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id == id) {
+            product = products[i];
+        }
+    }
 
-      cart.splice(0, cart.length);
-      console.log("cart cleaned auto: " + JSON.stringify(cart));
-      for (let i = 0; i < cartList.length; i++) {
-          if (!cart.includes(cartList[i])) { //doesn't exist
-              cartList[i].quantity = 1;
-              cart.push(cartList[i]);
-          } else { //exists
-              cartList[i].quantity += 1;
-          }
-      }
-      applyPromotionsCart(cart);
-      console.log("cart generated: " + JSON.stringify(cart));
-     
-      //insert item number added to cart
-      document.getElementById('count_product').innerHTML = totalQuantity;
+    // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+    cartList.push(product);
+
+    cart.splice(0, cart.length);
+    console.log("cart cleaned auto: " + JSON.stringify(cart));
+    for (let i = 0; i < cartList.length; i++) {
+        if (!cart.includes(cartList[i])) { //doesn't exist
+            cartList[i].quantity = 1;
+            cart.push(cartList[i]);
+        } else { //exists
+            cartList[i].quantity += 1;
+        }
+    }
+    applyPromotionsCart(cart);
+    console.log("cart generated: " + JSON.stringify(cart));
+
+    //insert item number added to cart
+    document.getElementById('count_product').innerHTML = totalQuantity;
 }
 
 // Exercise 8
 function removeFromCart(id) {
-    
-    // 1. Loop for to the array products to get the item to add to cart
 
+    console.log("entra" + id);
+    // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
-    console.log("cart BEFORE to remove: " + JSON.stringify(cart));
- 
+
     for (let i = 0; i < cart.length; i++) {
         if (cart[i].id == id && cart[i].quantity >= 1) { //doesn't exist
             cart[i].quantity--;
-           // cart.push(cartList[i]);
-        } /*else { //exists
-            cartList[i].quantity += 1;
-        }*/
-    }
-   // applyPromotionsCart(cart);
-    console.log("cart to remove: " + JSON.stringify(cart));
-   
-    //insert item number added to cart
-   // document.getElementById('count_product').innerHTML = totalQuantity;
 
+            //cart.push(cartList[i]);
+        }
+        console.log("cart to remove: " + JSON.stringify(cart));
+        /*else { //exists
+                   cartList[i].quantity += 1;
+               }*/
+        //}
+        // applyPromotionsCart(cart);
+
+        //insert item number added to cart
+        // document.getElementById('count_product').innerHTML = totalQuantity;
+
+    }
 }
 
 function open_modal() {
