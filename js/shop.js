@@ -179,13 +179,25 @@ function printCart() {
                 "<th>" + cart[i].name + "</th>" +
                 "<td>" + cart[i].price + "</td>" +
                 "<td>" + cart[i].quantity + "</td>" +
-                "<td>" + cart[i].subtotalWithDiscount + "</td>";
+                "<td>" + cart[i].subtotalWithDiscount + "</td>" +
+                "<td id='targ'><i " +
+                this.addEventListener("click",  function getHtml(){
+                    removeFromCart(cart[i].id);
+                }) +
+                " class='fas fa-solid fa-trash'></i></td>";
+                console.log("cart WITHDISCOUNT: " + JSON.stringify(cart[i]));
         } else {
             tableRef.insertRow().innerHTML =
                 "<th>" + cart[i].name + "</th>" +
                 "<td>" + cart[i].price + "</td>" +
                 "<td>" + cart[i].quantity + "</td>" +
-                "<td>" + cart[i].subtotal + "</td>";
+                "<td>" + cart[i].subtotal + "</td>" +
+                "<td id='targ'><i" +
+                this.addEventListener("click",  function getHtml(){
+                    removeFromCart(cart[i].id);
+                }) +
+                " class='fas fa-solid fa-trash'></i></td>";
+                console.log("cart WITHoutDISCOUNT: " + JSON.stringify(cart[i]));
         }
     }
 }
@@ -196,7 +208,6 @@ function printCart() {
 function addToCart(id) {
 
   let product;
-  let cartLength = cart.length;
     // Refactor previous code in order to simplify it
     // 1. Loop for to the array products to get the item to add to cart
         for (let i = 0; i < products.length; i++) {
@@ -227,8 +238,26 @@ function addToCart(id) {
 
 // Exercise 8
 function removeFromCart(id) {
+    
     // 1. Loop for to the array products to get the item to add to cart
+
     // 2. Add found product to the cartList array
+    console.log("cart BEFORE to remove: " + JSON.stringify(cart));
+ 
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id == id && cart[i].quantity >= 1) { //doesn't exist
+            cart[i].quantity--;
+           // cart.push(cartList[i]);
+        } /*else { //exists
+            cartList[i].quantity += 1;
+        }*/
+    }
+   // applyPromotionsCart(cart);
+    console.log("cart to remove: " + JSON.stringify(cart));
+   
+    //insert item number added to cart
+   // document.getElementById('count_product').innerHTML = totalQuantity;
+
 }
 
 function open_modal() {
