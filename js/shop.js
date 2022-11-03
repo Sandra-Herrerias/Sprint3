@@ -78,7 +78,7 @@ var totalQuantity = 0;
 
 const oilId = 1;
 const cupcakeId = 3;
-
+var tableRef;
 // Exercise 1
 /*function buy(id) {
     let product;
@@ -172,7 +172,7 @@ function applyPromotionsCart(cart) {
 function printCart() {
     var icon;
     // Fill the shopping cart modal manipulating the shopping cart dom
-    var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
+    tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
     for (let i = 0; i < cart.length; i++) {
         if ((cart[i].id == oilId && cart[i].quantity >= 3) || (cart[i].id == cupcakeId && cart[i].quantity >= 10)) {
 
@@ -184,7 +184,7 @@ function printCart() {
                 "<td><i id='icon" + cart[i].name + "' class='fas fa-solid fa-trash'></i></td>";
             icon = document.getElementById("icon" + cart[i].name);
             icon.onclick = function() {
-                removeFromCart(cart[i].id)
+                removeFromCart(cart[i].id);
             };
             console.log(icon);
 
@@ -197,7 +197,7 @@ function printCart() {
                 "<td><i id='icon" + cart[i].name + "' class='fas fa-solid fa-trash'></i></td>";
             icon = document.getElementById("icon" + cart[i].name);
             icon.onclick = function() {
-                removeFromCart(cart[i].id)
+                removeFromCart(cart[i].id);
             };
             console.log(icon);
         }
@@ -249,20 +249,80 @@ function removeFromCart(id) {
         if (cart[i].id == id && cart[i].quantity >= 1) { //doesn't exist
             cart[i].quantity--;
 
-            //cart.push(cartList[i]);
-        }
-        console.log("cart to remove: " + JSON.stringify(cart));
-        /*else { //exists
-                   cartList[i].quantity += 1;
-               }*/
-        //}
-        // applyPromotionsCart(cart);
+            console.log("cart to remove1: " + JSON.stringify(cart));
 
-        //insert item number added to cart
-        // document.getElementById('count_product').innerHTML = totalQuantity;
+            if (cart[i].quantity == 0) {
+                cart.splice(i, 1);
+                console.log("cart to remove2: " + JSON.stringify(cart));
+                tableRef.deleteRow(i);
+            }
+
+        }
+
+        // Apply promotions to each item in the array "cart"
+        let discount;
+        total = 0;
+        totalQuantity = 0;
+        for (let i = 0; i < cart.length; i++) {
+
+
+            cart[i].price;
+            cart[i].quantity;
+            cart[i].subtotal;
+
+
+            if (cart[i].id == oilId && cart[i].quantity >= 3) {
+                cart[i].price = 10;
+                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+                //sum total
+                total += cart[i].subtotalWithDiscount;
+                totalQuantity += cart[i].quantity;
+            } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
+                //calculate 2/3 from price discount
+                discount = cart[i].price / 3 * 2;
+                //round decimal numbers
+                cart[i].price = discount.toFixed(2);
+                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+                //sum total
+                total += cart[i].subtotalWithDiscount;
+                totalQuantity += cart[i].quantity;
+            } else {
+
+                if (cart[i].id == oilId && cart[i].quantity < 3) {
+                    cart[i].price = 10.5;
+                    cart[i].subtotal = cart[i].quantity * cart[i].price;
+                } else if (cart[i].id == cupcakeId && cart[i].quantity < 10) {
+                    cart[i].price = 5;
+                    cart[i].subtotal = cart[i].quantity * cart[i].price;
+                } else {
+                    cart[i].subtotal = cart[i].quantity * cart[i].price;
+                }
+
+                //sum total
+                total += cart[i].subtotal;
+                totalQuantity += cart[i].quantity;
+            }
+        }
+
+        // Calculate total price of the cart using the "cart" array
+        let totalDecimal = parseFloat(total).toFixed(2);
+        document.getElementById("total_price").innerHTML = totalDecimal;
+
+
+
+
+        console.log("cart FINAL: " + JSON.stringify(cart));
+        // Apply promotions to each item in the array "cart"
+
 
     }
+
+    //insert item number added to cart
+    document.getElementById('count_product').innerHTML = totalQuantity;
+
+
 }
+
 
 function open_modal() {
     console.log("Open Modal");
