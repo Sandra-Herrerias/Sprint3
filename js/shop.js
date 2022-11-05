@@ -208,34 +208,51 @@ function printCart() {
 
 // Exercise 7
 function addToCart(id) {
+    console.log("cart INITIAL: " + JSON.stringify(cart));
 
+
+
+    console.log("cart INITIALCARTLIST: " + JSON.stringify(cartList));
     let product;
+    console.log("PRODUCT INITIAL: " + JSON.stringify(products));
+
+
     // Refactor previous code in order to simplify it
     // 1. Loop for to the array products to get the item to add to cart
     for (let i = 0; i < products.length; i++) {
         if (products[i].id == id) {
+            //products.splice(0, products.length);
             product = products[i];
+            console.log(product);
         }
     }
 
     // 2. Add found product to the cart array or update its quantity in case it has been added previously.
     cartList.push(product);
-
+    console.log("cart PUSHEDCARTLIST: " + JSON.stringify(cartList));
     cart.splice(0, cart.length);
     console.log("cart cleaned auto: " + JSON.stringify(cart));
+    console.log("cart LISTBefore: " + JSON.stringify(cartList));
     for (let i = 0; i < cartList.length; i++) {
+        console.log("QUANTITY CARTLIST" + cartList[i].quantity + "product" + cartList[i].name);
+        console.log("QUANTITY CART" + cartList[i].quantity + "product" + cartList[i].name);
         if (!cart.includes(cartList[i])) { //doesn't exist
             cartList[i].quantity = 1;
             cart.push(cartList[i]);
+        } else if (cart.includes(cartList[i]) && cartList[i].quantity == 0) {
+            cartList[i].quantity = 1;
         } else { //exists
             cartList[i].quantity += 1;
         }
     }
+    console.log("cart generatedNOPROMOTIONS: " + JSON.stringify(cart));
     applyPromotionsCart(cart);
     console.log("cart generated: " + JSON.stringify(cart));
+    console.log("cart LISTAfter: " + JSON.stringify(cartList));
 
     //insert item number added to cart
     document.getElementById('count_product').innerHTML = totalQuantity;
+
 }
 
 // Exercise 8
@@ -250,76 +267,75 @@ function removeFromCart(id) {
             cart[i].quantity--;
 
             console.log("cart to remove1: " + JSON.stringify(cart));
-
-            if (cart[i].quantity == 0) {
+            if (cart[i].id == id && cart[i].quantity == 0) {
                 cart.splice(i, 1);
-                console.log("cart to remove2: " + JSON.stringify(cart));
+                //cartList.splice(i, 1);
+                console.log("cart to removeCART: " + JSON.stringify(cart));
+                //console.log("cart to removeCARTLIST: " + JSON.stringify(cartList));
                 tableRef.deleteRow(i);
             }
-
         }
+        /*
+                // Apply promotions to each item in the array "cart"
+                let discount;
+                total = 0;
+                totalQuantity = 0;
 
-        // Apply promotions to each item in the array "cart"
-        let discount;
-        total = 0;
-        totalQuantity = 0;
-        for (let i = 0; i < cart.length; i++) {
-
-
-            cart[i].price;
-            cart[i].quantity;
-            cart[i].subtotal;
-
-
-            if (cart[i].id == oilId && cart[i].quantity >= 3) {
-                cart[i].price = 10;
-                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-                //sum total
-                total += cart[i].subtotalWithDiscount;
-                totalQuantity += cart[i].quantity;
-            } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
-                //calculate 2/3 from price discount
-                discount = cart[i].price / 3 * 2;
-                //round decimal numbers
-                cart[i].price = discount.toFixed(2);
-                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-                //sum total
-                total += cart[i].subtotalWithDiscount;
-                totalQuantity += cart[i].quantity;
-            } else {
-
-                if (cart[i].id == oilId && cart[i].quantity < 3) {
-                    cart[i].price = 10.5;
-                    cart[i].subtotal = cart[i].quantity * cart[i].price;
-                } else if (cart[i].id == cupcakeId && cart[i].quantity < 10) {
-                    cart[i].price = 5;
-                    cart[i].subtotal = cart[i].quantity * cart[i].price;
+                if (cart[i].id == oilId && cart[i].quantity >= 3) {
+                    cart[i].price = 10;
+                    cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+                    //sum total
+                    total += cart[i].subtotalWithDiscount;
+                    totalQuantity += cart[i].quantity;
+                } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
+                    //calculate 2/3 from price discount
+                    discount = cart[i].price / 3 * 2;
+                    //round decimal numbers
+                    cart[i].price = discount.toFixed(2);
+                    cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+                    //sum total
+                    total += cart[i].subtotalWithDiscount;
+                    totalQuantity += cart[i].quantity;
                 } else {
-                    cart[i].subtotal = cart[i].quantity * cart[i].price;
+
+                    if (cart[i].id == oilId && cart[i].quantity < 3) {
+                        cart[i].price = 10.5;
+                        cart[i].subtotal = cart[i].quantity * cart[i].price;
+                    } else if (cart[i].id == cupcakeId && cart[i].quantity < 10) {
+                        cart[i].price = 5;
+                        cart[i].subtotal = cart[i].quantity * cart[i].price;
+                    } else {
+                        cart[i].subtotal = cart[i].quantity * cart[i].price;
+                    }
+
+                    //sum total
+                    total += cart[i].subtotal;
+                    totalQuantity += cart[i].quantity;
                 }
 
-                //sum total
-                total += cart[i].subtotal;
-                totalQuantity += cart[i].quantity;
-            }
-        }
+                // Calculate total price of the cart using the "cart" array
+                let totalDecimal = parseFloat(total).toFixed(2);
+                document.getElementById("total_price").innerHTML = totalDecimal;
 
-        // Calculate total price of the cart using the "cart" array
-        let totalDecimal = parseFloat(total).toFixed(2);
-        document.getElementById("total_price").innerHTML = totalDecimal;
-
-
-
-
+        */
         console.log("cart FINAL: " + JSON.stringify(cart));
         // Apply promotions to each item in the array "cart"
 
 
     }
 
+    for (let i = 0; i < cartList.length; i++) {
+        if (cartList[i].id == id && cartList[i].quantity == 0) {
+
+            cartList.splice(i, 1);
+
+            console.log("cart to removeCARTLIST: " + JSON.stringify(cartList));
+
+        }
+    }
+
     //insert item number added to cart
     document.getElementById('count_product').innerHTML = totalQuantity;
-
 
 }
 
@@ -328,6 +344,7 @@ function open_modal() {
     console.log("Open Modal");
     var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
     tableRef.innerHTML = "";
-    //generateCart(cartList);
+    // generateCart(cartList);
+    console.log("cart MODAL: " + JSON.stringify(cart));
     printCart();
 }
