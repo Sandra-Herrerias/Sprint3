@@ -105,15 +105,17 @@ function cleanCart() {
 }
 
 // Exercise 3
-/*function calculateTotal() {
+function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
     total = 0;
-    for (let i = 0; i < cartList.length; i++) {
-        total += cartList[i].price;
+    totalQuantity = 0;
+    for (let i = 0; i < cart.length; i++) {
+        total += cart[i].price;
+        totalQuantity += cart[i].quantity;
     }
     var totalDecimal = parseFloat(total).toFixed(2);
     document.getElementById("total_price").innerHTML = totalDecimal;
-}*/
+}
 
 // Exercise 4
 /*function generateCart(cartList) {
@@ -137,8 +139,7 @@ function cleanCart() {
 function applyPromotionsCart(cart) {
     // Apply promotions to each item in the array "cart"
     let discount;
-    total = 0;
-    totalQuantity = 0;
+
     for (let i = 0; i < cart.length; i++) {
 
         //original values
@@ -152,7 +153,7 @@ function applyPromotionsCart(cart) {
 
             cart[i].price = 10;
             cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-            totalQuantity += cart[i].quantity;
+
 
         } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
 
@@ -161,19 +162,14 @@ function applyPromotionsCart(cart) {
             //round decimal numbers
             cart[i].price = discount.toFixed(2);
             cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-            totalQuantity += cart[i].quantity;
+
 
         } else { //No promotions
 
             cart[i].subtotal = cart[i].quantity * cart[i].price;
-            totalQuantity += cart[i].quantity;
-        }
-        total += cart[i].subtotal;
-    }
 
-    // Calculate total price of the cart using the "cart" array
-    let totalDecimal = parseFloat(total).toFixed(2);
-    document.getElementById("total_price").innerHTML = totalDecimal;
+        }
+    }
 }
 
 // Exercise 6
@@ -220,7 +216,6 @@ function addToCart(id) {
     // 1. Loop for to the array products to get the item to add to cart
     for (let i = 0; i < products.length; i++) {
         if (products[i].id == id) {
-            //products.splice(0, products.length);
             product = products[i];
         }
     }
@@ -242,7 +237,7 @@ function addToCart(id) {
     }
 
     applyPromotionsCart(cart);
-
+    calculateTotal();
     //insert item number added to cart
     document.getElementById('count_product').innerHTML = totalQuantity;
     printCart();
@@ -259,7 +254,7 @@ function removeFromCart(id) {
 
             cart[i].quantity--;
             applyPromotionsCart(cart);
-
+            calculateTotal();
             if (cart[i].id == id && cart[i].quantity == 0) {
                 cart.splice(i, 1);
                 tableRef.deleteRow(i);
