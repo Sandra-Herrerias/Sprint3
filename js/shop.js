@@ -1,71 +1,71 @@
-window.onload = function () {
-  document.getElementById("count_product").innerHTML = 0;
+window.onload = function() {
+    document.getElementById('count_product').innerHTML = 0;
 };
 
+
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
-var products = [
-  {
-    id: 1,
-    name: "cooking oil",
-    price: 10.5,
-    type: "grocery",
-    offer: {
-      number: 3,
-      percent: 20,
+var products = [{
+        id: 1,
+        name: "cooking oil",
+        price: 10.5,
+        type: "grocery",
+        offer: {
+            number: 3,
+            percent: 20,
+        },
     },
-  },
-  {
-    id: 2,
-    name: "Pasta",
-    price: 6.25,
-    type: "grocery",
-  },
-  {
-    id: 3,
-    name: "Instant cupcake mixture",
-    price: 5,
-    type: "grocery",
-    offer: {
-      number: 10,
-      percent: 30,
+    {
+        id: 2,
+        name: "Pasta",
+        price: 6.25,
+        type: "grocery",
     },
-  },
-  {
-    id: 4,
-    name: "All-in-one",
-    price: 260,
-    type: "beauty",
-  },
-  {
-    id: 5,
-    name: "Zero Make-up Kit",
-    price: 20.5,
-    type: "beauty",
-  },
-  {
-    id: 6,
-    name: "Lip Tints",
-    price: 12.75,
-    type: "beauty",
-  },
-  {
-    id: 7,
-    name: "Lawn Dress",
-    price: 15,
-    type: "clothes",
-  },
-  {
-    id: 8,
-    name: "Lawn-Chiffon Combo",
-    price: 19.99,
-    type: "clothes",
-  },
-  {
-    id: 9,
-    name: "Toddler Frock",
-    price: 9.99,
-    type: "clothes",
-  },
+    {
+        id: 3,
+        name: "Instant cupcake mixture",
+        price: 5,
+        type: "grocery",
+        offer: {
+            number: 10,
+            percent: 30,
+        },
+    },
+    {
+        id: 4,
+        name: "All-in-one",
+        price: 260,
+        type: "beauty",
+    },
+    {
+        id: 5,
+        name: "Zero Make-up Kit",
+        price: 20.5,
+        type: "beauty",
+    },
+    {
+        id: 6,
+        name: "Lip Tints",
+        price: 12.75,
+        type: "beauty",
+    },
+    {
+        id: 7,
+        name: "Lawn Dress",
+        price: 15,
+        type: "clothes",
+    },
+    {
+        id: 8,
+        name: "Lawn-Chiffon Combo",
+        price: 19.99,
+        type: "clothes",
+    },
+    {
+        id: 9,
+        name: "Toddler Frock",
+        price: 9.99,
+        type: "clothes",
+    },
 ];
 // Array with products (objects) added directly with push(). Products in this array are repeated.
 var cartList = [];
@@ -96,14 +96,12 @@ var tableRef;
 
 // Exercise 2
 function cleanCart() {
-  cartList.splice(0, cartList.length);
-  cart.splice(0, cart.length);
-  document.getElementById("total_price").innerHTML = 0;
-  var tableRef = document
-    .getElementById("tableCart")
-    .getElementsByTagName("tbody")[0];
-  tableRef.innerHTML = "";
-  document.getElementById("count_product").innerHTML = 0;
+    cartList.splice(0, cartList.length);
+    cart.splice(0, cart.length);
+    document.getElementById("total_price").innerHTML = 0;
+    tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
+    tableRef.innerHTML = "";
+    document.getElementById('count_product').innerHTML = 0;
 }
 
 // Exercise 3
@@ -137,230 +135,150 @@ function cleanCart() {
 
 // Exercise 5
 function applyPromotionsCart(cart) {
-  // Apply promotions to each item in the array "cart"
-  let discount;
-  total = 0;
-  totalQuantity = 0;
-  for (let i = 0; i < cart.length; i++) {
-    if (cart[i].id == oilId && cart[i].quantity >= 3) {
-      cart[i].price = 10;
-      cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-      //sum total
-      total += cart[i].subtotalWithDiscount;
-      totalQuantity += cart[i].quantity;
-    } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
-      //calculate 2/3 from price discount
-      discount = (cart[i].price / 3) * 2;
-      //round decimal numbers
-      cart[i].price = discount.toFixed(2);
-      cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-      //sum total
-      total += cart[i].subtotalWithDiscount;
-      totalQuantity += cart[i].quantity;
-    } else {
-      cart[i].subtotal = cart[i].quantity * cart[i].price;
-      //sum total
-      total += cart[i].subtotal;
-      totalQuantity += cart[i].quantity;
-    }
-  }
+    // Apply promotions to each item in the array "cart"
+    let discount;
+    total = 0;
+    totalQuantity = 0;
+    for (let i = 0; i < cart.length; i++) {
 
-  // Calculate total price of the cart using the "cart" array
-  let totalDecimal = parseFloat(total).toFixed(2);
-  document.getElementById("total_price").innerHTML = totalDecimal;
+        //original values
+        if (cart[i].id == oilId) {
+            cart[i].price = 10.5;
+        } else if (cart[i].id == cupcakeId) {
+            cart[i].price = 5;
+        }
+
+        if (cart[i].id == oilId && cart[i].quantity >= 3) {
+
+            cart[i].price = 10;
+            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+            totalQuantity += cart[i].quantity;
+
+        } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
+
+            //calculate 2/3 from price discount
+            discount = cart[i].price / 3 * 2;
+            //round decimal numbers
+            cart[i].price = discount.toFixed(2);
+            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+            totalQuantity += cart[i].quantity;
+
+        } else { //No promotions
+
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
+            totalQuantity += cart[i].quantity;
+        }
+        total += cart[i].subtotal;
+    }
+
+    // Calculate total price of the cart using the "cart" array
+    let totalDecimal = parseFloat(total).toFixed(2);
+    document.getElementById("total_price").innerHTML = totalDecimal;
 }
 
 // Exercise 6
 function printCart() {
-  var icon;
-  // Fill the shopping cart modal manipulating the shopping cart dom
-  tableRef = document
-    .getElementById("tableCart")
-    .getElementsByTagName("tbody")[0];
-  tableRef.innerHTML = ""; //empty cart
-  for (let i = 0; i < cart.length; i++) {
-    if (
-      (cart[i].id == oilId && cart[i].quantity >= 3) ||
-      (cart[i].id == cupcakeId && cart[i].quantity >= 10)
-    ) {
-      tableRef.insertRow().innerHTML =
-        "<th>" +
-        cart[i].name +
-        "</th>" +
-        "<td>" +
-        cart[i].price +
-        "</td>" +
-        "<td>" +
-        cart[i].quantity +
-        "</td>" +
-        "<td>" +
-        cart[i].subtotalWithDiscount +
-        "</td>" +
-        "<td><i id='icon" +
-        cart[i].name +
-        "' class='fas fa-solid fa-trash'></i></td>";
-      icon = document.getElementById("icon" + cart[i].name);
-      icon.onclick = function () {
-        removeFromCart(cart[i].id);
-      };
-      console.log(icon);
-    } else {
-      tableRef.insertRow().innerHTML =
-        "<th>" +
-        cart[i].name +
-        "</th>" +
-        "<td>" +
-        cart[i].price +
-        "</td>" +
-        "<td>" +
-        cart[i].quantity +
-        "</td>" +
-        "<td>" +
-        cart[i].subtotal +
-        "</td>" +
-        "<td><i id='icon" +
-        cart[i].name +
-        "' class='fas fa-solid fa-trash'></i></td>";
-      icon = document.getElementById("icon" + cart[i].name);
-      icon.onclick = function () {
-        removeFromCart(cart[i].id);
-      };
-      console.log(icon);
+    var icon;
+    // Fill the shopping cart modal manipulating the shopping cart dom
+    tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
+    tableRef.innerHTML = ""; //empty cart
+    for (let i = 0; i < cart.length; i++) {
+        if ((cart[i].id == oilId && cart[i].quantity >= 3) || (cart[i].id == cupcakeId && cart[i].quantity >= 10)) {
+
+            tableRef.insertRow().innerHTML =
+                "<th>" + cart[i].name + "</th>" +
+                "<td>" + cart[i].price + "</td>" +
+                "<td>" + cart[i].quantity + "</td>" +
+                "<td>" + cart[i].subtotalWithDiscount + "</td>" +
+                "<td><i id='icon" + cart[i].name + "' class='fas fa-solid fa-trash'></i></td>";
+            icon = document.getElementById("icon" + cart[i].name);
+            icon.onclick = function() {
+                removeFromCart(cart[i].id);
+            };
+        } else {
+            tableRef.insertRow().innerHTML =
+                "<th>" + cart[i].name + "</th>" +
+                "<td>" + cart[i].price + "</td>" +
+                "<td>" + cart[i].quantity + "</td>" +
+                "<td>" + cart[i].subtotal + "</td>" +
+                "<td><i id='icon" + cart[i].name + "' class='fas fa-solid fa-trash'></i></td>";
+            icon = document.getElementById("icon" + cart[i].name);
+            icon.onclick = function() {
+                removeFromCart(cart[i].id);
+            };
+        }
     }
-  }
 }
 
 // ** Nivell II **
 
 // Exercise 7
 function addToCart(id) {
-  console.log("cart INITIAL: " + JSON.stringify(cart));
+    let product;
 
-  console.log("cart INITIALCARTLIST: " + JSON.stringify(cartList));
-  let product;
-  console.log("PRODUCT INITIAL: " + JSON.stringify(products));
-
-  // Refactor previous code in order to simplify it
-  // 1. Loop for to the array products to get the item to add to cart
-  for (let i = 0; i < products.length; i++) {
-    if (products[i].id == id) {
-      //products.splice(0, products.length);
-      product = products[i];
-      console.log(product);
+    // Refactor previous code in order to simplify it
+    // 1. Loop for to the array products to get the item to add to cart
+    for (let i = 0; i < products.length; i++) {
+        if (products[i].id == id) {
+            //products.splice(0, products.length);
+            product = products[i];
+        }
     }
-  }
 
-  // 2. Add found product to the cart array or update its quantity in case it has been added previously.
-  cartList.push(product);
-  console.log("cart PUSHEDCARTLIST: " + JSON.stringify(cartList));
-  cart.splice(0, cart.length);
-  console.log("cart cleaned auto: " + JSON.stringify(cart));
-  console.log("cart LISTBefore: " + JSON.stringify(cartList));
-  for (let i = 0; i < cartList.length; i++) {
-    console.log(
-      "QUANTITY CARTLIST" + cartList[i].quantity + "product" + cartList[i].name
-    );
-    console.log(
-      "QUANTITY CART" + cartList[i].quantity + "product" + cartList[i].name
-    );
-    if (!cart.includes(cartList[i])) {
-      //doesn't exist
-      cartList[i].quantity = 1;
-      cart.push(cartList[i]);
-    } else if (cart.includes(cartList[i]) && cartList[i].quantity == 0) {
-      cartList[i].quantity = 1;
-    } else {
-      //exists
-      cartList[i].quantity += 1;
+    // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+    cartList.push(product);
+    cart.splice(0, cart.length);
+
+    for (let i = 0; i < cartList.length; i++) {
+
+        if (!cart.includes(cartList[i])) { //doesn't exist
+            cartList[i].quantity = 1;
+            cart.push(cartList[i]);
+        } else if (cart.includes(cartList[i]) && cartList[i].quantity == 0) {
+            cartList[i].quantity = 1;
+        } else { //exists
+            cartList[i].quantity += 1;
+        }
     }
-  }
-  console.log("cart generatedNOPROMOTIONS: " + JSON.stringify(cart));
-  applyPromotionsCart(cart);
-  console.log("cart generated: " + JSON.stringify(cart));
-  console.log("cart LISTAfter: " + JSON.stringify(cartList));
 
-  //insert item number added to cart
-  document.getElementById("count_product").innerHTML = totalQuantity;
-  printCart();
+    applyPromotionsCart(cart);
+
+    //insert item number added to cart
+    document.getElementById('count_product').innerHTML = totalQuantity;
+    printCart();
 }
 
 // Exercise 8
 function removeFromCart(id) {
-  console.log("entra" + id);
-  // 1. Loop for to the array products to get the item to add to cart
-  // 2. Add found product to the cartList array
-  let discount;
-  //total = 0;
-  //totalQuantity = 0;
-  for (let i = 0; i < cart.length; i++) {
-    //update cart
-    if (cart[i].id == id && cart[i].quantity >= 1) {
-      //doesn't exist
-      cart[i].quantity--;
-      // Apply promotions to each item in the array "cart"
+    // 1. Loop for to the array products to get the item to add to cart
+    // 2. Add found product to the cartList array
 
-      console.log("QUANTITY" + cart[i].quantity);
-      console.log("ID" + cart[i].id);
-      if (cart[i].id == oilId && cart[i].quantity >= 3) {
-        cart[i].price = 10;
-        cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-        //sum total
-        total -= cart[i].subtotalWithDiscount;
-        totalQuantity -= cart[i].quantity;
-      } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
-        //calculate 2/3 from price discount
-        discount = (cart[i].price / 3) * 2;
-        //round decimal numbers
-        cart[i].price = discount.toFixed(2);
-        cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-        //sum total
-        total -= cart[i].subtotalWithDiscount;
-        totalQuantity -= cart[i].quantity;
-      } else {
-        if (cart[i].id == oilId && cart[i].quantity < 3) {
-          cart[i].price = 10.5;
-          cart[i].subtotal = cart[i].quantity * cart[i].price;
-        } else if (cart[i].id == cupcakeId && cart[i].quantity < 10) {
-          cart[i].price = 5;
-          cart[i].subtotal = cart[i].quantity * cart[i].price;
-        } else {
-          cart[i].subtotal = cart[i].quantity * cart[i].price;
-        } //sum total
-        total -= cart[i].subtotal;
-        totalQuantity -= cart[i].quantity;
-      }
+    for (let i = 0; i < cart.length; i++) {
 
-      console.log("cart to remove1: " + JSON.stringify(cart));
-      if (cart[i].id == id && cart[i].quantity == 0) {
-        console.log(total);
-        //total = cart[i].subtotal-cart[i].price;
-        cart.splice(i, 1);
+        if (cart[i].id == id && cart[i].quantity >= 1) { //remove item from cart
 
-        console.log("cart to removeCART: " + JSON.stringify(cart));
+            cart[i].quantity--;
+            applyPromotionsCart(cart);
 
-        tableRef.deleteRow(i);
-      }
+            if (cart[i].id == id && cart[i].quantity == 0) {
+                cart.splice(i, 1);
+                tableRef.deleteRow(i);
+            }
+        }
     }
-    console.log("cart FINAL: " + JSON.stringify(cart));
-    // Apply promotions to each item in the array "cart"
-  } 
-// Calculate total price of the cart using the "cart" array
-  let totalDecimal = parseFloat(total).toFixed(2);
-  document.getElementById("total_price").innerHTML = totalDecimal;
-  for (let i = 0; i < cartList.length; i++) {
-    //update cartList
-    if (cartList[i].id == id) {
-      cartList.splice(i, 1);
-      console.log("cart to removeCARTLIST: " + JSON.stringify(cartList));
-    }
-  }
 
-  //insert item number added to cart
-  document.getElementById("count_product").innerHTML = totalQuantity;
-  printCart();
+    for (let i = 0; i < cartList.length; i++) { //remove item from cartList
+        if (cartList[i].id == id) {
+            cartList.splice(i, 1);
+        }
+    }
+
+    //insert item number added to cart
+    document.getElementById('count_product').innerHTML = totalQuantity;
+    printCart();
 }
 
+
 function open_modal() {
-  console.log("Open Modal");
-  // generateCart(cartList);
+    console.log("Open Modal");
 }
