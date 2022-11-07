@@ -173,6 +173,7 @@ function printCart() {
     var icon;
     // Fill the shopping cart modal manipulating the shopping cart dom
     tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
+    tableRef.innerHTML = "";//empty cart
     for (let i = 0; i < cart.length; i++) {
         if ((cart[i].id == oilId && cart[i].quantity >= 3) || (cart[i].id == cupcakeId && cart[i].quantity >= 10)) {
 
@@ -208,6 +209,7 @@ function printCart() {
 
 // Exercise 7
 function addToCart(id) {
+   
     console.log("cart INITIAL: " + JSON.stringify(cart));
 
 
@@ -252,17 +254,17 @@ function addToCart(id) {
 
     //insert item number added to cart
     document.getElementById('count_product').innerHTML = totalQuantity;
-
+    printCart();
 }
 
 // Exercise 8
 function removeFromCart(id) {
-
+  
     console.log("entra" + id);
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
 
-    for (let i = 0; i < cart.length; i++) {
+    for (let i = 0; i < cart.length; i++) {//update cart
         if (cart[i].id == id && cart[i].quantity >= 1) { //doesn't exist
             cart[i].quantity--;
 
@@ -275,7 +277,7 @@ function removeFromCart(id) {
                 tableRef.deleteRow(i);
             }
         }
-        /*
+        
                 // Apply promotions to each item in the array "cart"
                 let discount;
                 total = 0;
@@ -317,15 +319,15 @@ function removeFromCart(id) {
                 let totalDecimal = parseFloat(total).toFixed(2);
                 document.getElementById("total_price").innerHTML = totalDecimal;
 
-        */
+        
         console.log("cart FINAL: " + JSON.stringify(cart));
         // Apply promotions to each item in the array "cart"
 
 
     }
 
-    for (let i = 0; i < cartList.length; i++) {
-        if (cartList[i].id == id && cartList[i].quantity == 0) {
+    for (let i = 0; i < cartList.length; i++) {//update cartList
+        if (cartList[i].id == id) {
 
             cartList.splice(i, 1);
 
@@ -336,15 +338,11 @@ function removeFromCart(id) {
 
     //insert item number added to cart
     document.getElementById('count_product').innerHTML = totalQuantity;
-
+    printCart();
 }
 
 
 function open_modal() {
     console.log("Open Modal");
-    var tableRef = document.getElementById('tableCart').getElementsByTagName('tbody')[0];
-    tableRef.innerHTML = "";
     // generateCart(cartList);
-    console.log("cart MODAL: " + JSON.stringify(cart));
-    printCart();
 }
