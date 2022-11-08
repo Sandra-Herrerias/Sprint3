@@ -122,7 +122,7 @@ function calculateTotal() {
     // Using the "cartlist" array that contains all the items in the shopping cart,
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
     cart.splice(0, cart.length);
-    console.log("cart cleaned auto: " + JSON.stringify(cart));
+
     for (let i = 0; i < cartList.length; i++) {
         if (!cart.includes(cartList[i])) { //doesn't exist
             cartList[i].quantity = 1;
@@ -132,7 +132,6 @@ function calculateTotal() {
         }
     }
     applyPromotionsCart(cart);
-    console.log("cart generated: " + JSON.stringify(cart));
 }*/
 
 // Exercise 5
