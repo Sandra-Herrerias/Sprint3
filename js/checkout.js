@@ -32,7 +32,7 @@ const regex = {
     emailRegex: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
     addressRegex: /^.{3,}$/,
     lastNameRegex: /^[a-zA-ZÀ-ÿ\s]{3,}$/,
-    passwordRegex: /^[0-9a-zA-Z]{3,}$/,
+    passwordRegex: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){3,}$/,
     phoneRegex: /^\d{3,9}$/
 }
 
@@ -68,7 +68,7 @@ const validate = (e) => {
 
 function showValidationInput(field, regexPattern, fieldGroup, errorText, e) {
 
-    if (regexPattern.test(e.target.value) && field.value.trim() != "") {//valid
+    if (regexPattern.test(e.target.value) && field.value.trim() != "") { //valid
         fieldGroup.classList.remove('invalidInput');
         document.querySelector('#' + fieldGroup.id + ' i').classList.remove('fa-times-circle');
         fieldGroup.classList.add('validInput');
@@ -76,13 +76,13 @@ function showValidationInput(field, regexPattern, fieldGroup, errorText, e) {
         errorText.style.display = 'none';
         //custom error variable depending on the group input that has been touched
         window['errorsFlag' + fieldGroup.id] = false;
-    } else {//invalid
+    } else { //invalid
         fieldGroup.classList.remove('validInput');
         document.querySelector('#' + fieldGroup.id + ' i').classList.remove('fa-check-circle');
         fieldGroup.classList.add('invalidInput');
         document.querySelector('#' + fieldGroup.id + ' i').classList.add('fa-times-circle');
         errorText.style.display = 'block';
-      
+
         window['errorsFlag' + fieldGroup.id] = true;
     }
 }
@@ -94,32 +94,32 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validate);
 });
 
-if(formCheckOut){
-//Form that listens until submit
-formCheckOut.addEventListener('submit', (e) => {
+if (formCheckOut) {
+    //Form that listens until submit
+    formCheckOut.addEventListener('submit', (e) => {
 
-    if (fName.value.trim() != "" &&
-        fEmail.value.trim() != "" &&
-        fAddress.value.trim() != "" &&
-        fLastN.value.trim() != "" &&
-        fPassword.value.trim() != "" &&
-        fPhone.value.trim() != "" &&
-        window['errorsFlagfNameGroup'] == false &&
-        window['errorsFlagfEmailGroup'] == false &&
-        window['errorsFlagfAddressGroup'] == false && 
-        window['errorsFlagfLastNGroup'] == false &&
-        window['errorsFlagfPasswordGroup'] == false &&
-        window['errorsFlagfPhoneGroup'] == false) {
-           
-      
-        alert("OK");
-        formCheckOut.reset();
-    } else {
-    
-        alert("Error");
-        e.preventDefault(); //avoid page reload
-    }
-});
+        if (fName.value.trim() != "" &&
+            fEmail.value.trim() != "" &&
+            fAddress.value.trim() != "" &&
+            fLastN.value.trim() != "" &&
+            fPassword.value.trim() != "" &&
+            fPhone.value.trim() != "" &&
+            window['errorsFlagfNameGroup'] == false &&
+            window['errorsFlagfEmailGroup'] == false &&
+            window['errorsFlagfAddressGroup'] == false &&
+            window['errorsFlagfLastNGroup'] == false &&
+            window['errorsFlagfPasswordGroup'] == false &&
+            window['errorsFlagfPhoneGroup'] == false) {
+
+
+            alert("OK");
+            formCheckOut.reset();
+        } else {
+
+            alert("Error");
+            e.preventDefault(); //avoid page reload
+        }
+    });
 
 
 }
