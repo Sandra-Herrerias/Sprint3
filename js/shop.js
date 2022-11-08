@@ -110,7 +110,7 @@ function calculateTotal() {
     total = 0;
     totalQuantity = 0;
     for (let i = 0; i < cart.length; i++) {
-        total += cart[i].price;
+        total += cart[i].price *cart[i].quantity;
         totalQuantity += cart[i].quantity;
     }
     var totalDecimal = parseFloat(total).toFixed(2);
@@ -154,7 +154,6 @@ function applyPromotionsCart(cart) {
             cart[i].price = 10;
             cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
 
-
         } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
 
             //calculate 2/3 from price discount
@@ -163,11 +162,8 @@ function applyPromotionsCart(cart) {
             cart[i].price = discount.toFixed(2);
             cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
 
-
         } else { //No promotions
-
             cart[i].subtotal = cart[i].quantity * cart[i].price;
-
         }
     }
 }
@@ -254,14 +250,16 @@ function removeFromCart(id) {
 
             cart[i].quantity--;
             applyPromotionsCart(cart);
-            calculateTotal();
+        
             if (cart[i].id == id && cart[i].quantity == 0) {
                 cart.splice(i, 1);
                 tableRef.deleteRow(i);
             }
-        }
+        } 
     }
-
+    
+    calculateTotal();
+   
     for (let i = 0; i < cartList.length; i++) { //remove item from cartList
         if (cartList[i].id == id) {
             cartList.splice(i, 1);
