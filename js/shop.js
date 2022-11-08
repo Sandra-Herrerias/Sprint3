@@ -2,7 +2,6 @@ window.onload = function() {
     document.getElementById('count_product').innerHTML = 0;
 };
 
-
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
 var products = [{
         id: 1,
@@ -110,7 +109,7 @@ function calculateTotal() {
     total = 0;
     totalQuantity = 0;
     for (let i = 0; i < cart.length; i++) {
-        total += cart[i].price *cart[i].quantity;
+        total += cart[i].price * cart[i].quantity;
         totalQuantity += cart[i].quantity;
     }
     var totalDecimal = parseFloat(total).toFixed(2);
@@ -249,16 +248,16 @@ function removeFromCart(id) {
 
             cart[i].quantity--;
             applyPromotionsCart(cart);
-        
+
             if (cart[i].id == id && cart[i].quantity == 0) {
                 cart.splice(i, 1);
                 tableRef.deleteRow(i);
             }
-        } 
+        }
     }
-    
+
     calculateTotal();
-   
+
     for (let i = 0; i < cartList.length; i++) { //remove item from cartList
         if (cartList[i].id == id) {
             cartList.splice(i, 1);
