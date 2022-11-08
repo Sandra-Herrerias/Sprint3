@@ -68,13 +68,18 @@ footer {
     color: #212529;
 }
 
-.textGrey {
+.textPrice {
     color: #6c757d;
+}
+
+a:hover span {
+    -webkit-text-fill-color: white;
+    -moz-text-fill-color: white;
 }
 
 .gradient-text,
 a:hover,
-.numCart:hover {
+.badge:hover {
     /* Fallback: Set a background color. */
     background-color: transparent;
     /* Create the gradient. */
@@ -88,4 +93,37 @@ a:hover,
     -webkit-text-fill-color: transparent;
     -moz-background-clip: text;
     -moz-text-fill-color: transparent;
+}
+
+.btn:hover,
+form .btn {
+    /* Fallback: Set a background color. */
+    background-color: transparent;
+    /* Create the gradient. */
+    background-image: linear-gradient(180deg, #ff5f6d, #ffc371);
+    /* Set the background size and repeat properties. */
+    background-size: 100%;
+    background-repeat: repeat;
+    border: none;
+}
+
+.card {
+    box-shadow: 0 4px 6px 0 rgba(22, 22, 26, 0.18);
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+.card:hover .textPrice {
+    color: #ff5f6d;
+    font-weight: bolder;
+}
+
+@media (max-width: 576px) {
+    *,
+     ::after,
+     ::before {
+        box-sizing: content-box;
+    }
 }
