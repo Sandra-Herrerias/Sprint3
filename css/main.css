@@ -64,6 +64,12 @@ footer {
     border-top-right-radius: 61% 147%;
 }
 
+ .checkOutPosition{
+    position: absolute; 
+    bottom: 0;
+    width: 100%;
+}
+
 .itemName {
     color: #212529;
 }
