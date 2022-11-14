@@ -143,23 +143,21 @@ function applyPromotionsCart(cart) {
         //original values
         if (cart[i].id == oilId) {
             cart[i].price = 10.5;
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
+            if (cart[i].quantity >= 3) {
+                cart[i].price = 10;
+                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+            }
         } else if (cart[i].id == cupcakeId) {
             cart[i].price = 5;
-        }
-
-        if (cart[i].id == oilId && cart[i].quantity >= 3) {
-
-            cart[i].price = 10;
-            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-
-        } else if (cart[i].id == cupcakeId && cart[i].quantity >= 10) {
-
-            //calculate 2/3 from price discount
-            discount = cart[i].price / 3 * 2;
-            //round decimal numbers
-            cart[i].price = discount.toFixed(2);
-            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-
+            cart[i].subtotal = cart[i].quantity * cart[i].price;
+            if (cart[i].quantity >= 10) {
+                //calculate 2/3 from price discount
+                discount = cart[i].price / 3 * 2;
+                //round decimal numbers
+                cart[i].price = discount.toFixed(2);
+                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+            }
         } else { //No promotions
             cart[i].subtotal = cart[i].quantity * cart[i].price;
         }
