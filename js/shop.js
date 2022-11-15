@@ -3,7 +3,7 @@ window.onload = function() {
 };
 
 // If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
-var products = [{
+const products = [{
         id: 1,
         name: "cooking oil",
         price: 10.5,
@@ -75,8 +75,17 @@ var cart = [];
 var total = 0;
 var totalQuantity = 0;
 
-const oilId = 1;
-const cupcakeId = 3;
+const oilId = products[0].id;
+const oilPrice = products[0].price;
+const oilNum = products[0].offer.number;
+const oilPercent = products[0].offer.percent /100;
+
+
+const cupcakeId = products[2].id;
+const cupcakePrice = products[2].price;
+const cupcakeNum = products[2].offer.number;
+const cupcakePercent = products[2].offer.percent /100;
+
 var tableRef;
 // Exercise 1
 /*function buy(id) {
@@ -137,27 +146,27 @@ function calculateTotal() {
 function applyPromotionsCart(cart) {
     // Apply promotions to each item in the array "cart"
     let discount;
+    
 
     for (let i = 0; i < cart.length; i++) {
 
         //original values
         if (cart[i].id == oilId) {
-            cart[i].price = 10.5;
-            cart[i].subtotal = cart[i].quantity * cart[i].price;
-            if (cart[i].quantity >= 3) {
-                cart[i].price = 10;
-                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-            }
+            cart[i].price = oilPrice;
         } else if (cart[i].id == cupcakeId) {
-            cart[i].price = 5;
-            cart[i].subtotal = cart[i].quantity * cart[i].price;
-            if (cart[i].quantity >= 10) {
-                //calculate 2/3 from price discount
-                discount = cart[i].price / 3 * 2;
-                //round decimal numbers
-                cart[i].price = discount.toFixed(2);
-                cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
-            }
+            cart[i].price = cupcakePrice;
+        }
+
+        if (cart[i].id == oilId && cart[i].quantity >= oilNum) {
+            const oilDiscount = oilPrice * oilPercent.toFixed(2);
+            cart[i].price = oilPrice - oilDiscount.toFixed(2);
+            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+
+        } else if (cart[i].id == cupcakeId && cart[i].quantity >= cupcakeNum) {
+            const cupcakeDiscount = cupcakePrice * cupcakePercent.toFixed(2);
+            cart[i].price = cupcakePrice - cupcakeDiscount.toFixed(2);
+            cart[i].subtotalWithDiscount = cart[i].quantity * cart[i].price;
+
         } else { //No promotions
             cart[i].subtotal = cart[i].quantity * cart[i].price;
         }
